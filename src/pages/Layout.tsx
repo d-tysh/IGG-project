@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom"
 
 export const Layout = () => {
     return (
-        <div className="max-w-[800px] block mx-auto" >
+        <div className="max-w-[1200px] block mx-auto" >
             <Header />
             <Suspense fallback={<div>Loading...</div>}>
                 <Outlet />
