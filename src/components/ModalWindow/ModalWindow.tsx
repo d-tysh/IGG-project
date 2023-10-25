@@ -19,7 +19,7 @@ const customStyles = {
 type ModalProps = {
     modalIsOpen: boolean, 
     closeModal: () => void, 
-    item: TableDataItem | null
+    item: TableDataItem | null,
 }
 
 export const ModalWindow = ({modalIsOpen, closeModal, item}: ModalProps) => {

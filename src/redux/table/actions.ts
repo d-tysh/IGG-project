@@ -67,12 +67,13 @@ export const editDataById = createAsyncThunk(
         try {
             console.log(data);
             const response = await axios.put(`table/${id}/`, data);
-            console.log(response);
+            toast.success("Data edited.")
             return response.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 const axiosError = error as AxiosError;
                 if (axiosError.response) {
+                    toast.success("Error!");
                     return rejectWithValue(axiosError.response.data);
                 }
             }

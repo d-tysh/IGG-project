@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { TableDataItem } from '../../interfaces/interfaces';
 import { BsPencilSquare } from 'react-icons/bs';
 import { ModalWindow } from '../ModalWindow/ModalWindow';
@@ -7,12 +7,15 @@ export const Table = ({ dataList }: { dataList: TableDataItem[] }) => {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [itemData, setItemData] = useState<TableDataItem | null>(null);
 
+    useEffect(() => {}, [modalIsOpen]);
+
     const openModal = (item: TableDataItem) => {
-        setIsOpen(true);
         setItemData(item);
+        setIsOpen(true);
     }
 
     const closeModal = () => {
+        setItemData(null);
         setIsOpen(false);
     }
 
@@ -54,7 +57,7 @@ export const Table = ({ dataList }: { dataList: TableDataItem[] }) => {
             <ModalWindow 
                 modalIsOpen={modalIsOpen}  
                 closeModal={closeModal}
-                item={itemData} 
+                item={itemData}
             />
         </div>
     )

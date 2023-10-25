@@ -24,6 +24,7 @@ function App() {
           <Route path='/add-table-data' element={
               <PrivateRoute redirectTo='/login' component={<AddDataPage />} />
           } />
+         <Route path='*' element={<div className="text-2xl text-center mt-4 ">Sorry, page not found</div>} />
         </Route>
       </Routes>
       <ToastContainer />
