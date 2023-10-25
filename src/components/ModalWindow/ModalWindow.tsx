@@ -1,9 +1,9 @@
 import Modal from 'react-modal';
 import { FaWindowClose } from 'react-icons/fa'
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 import { editDataById } from '../../redux/table/actions';
-import { DataProps } from '../../interfaces/interfaces';
+import { TableDataItem } from '../../interfaces/interfaces';
+import { useAppDispatch } from '../../hooks';
 
 const customStyles = {
     content: {
@@ -19,15 +19,15 @@ const customStyles = {
 type ModalProps = {
     modalIsOpen: boolean, 
     closeModal: () => void, 
-    item: DataProps | null
+    item: TableDataItem | null
 }
 
 export const ModalWindow = ({modalIsOpen, closeModal, item}: ModalProps) => {
-    const {register, handleSubmit, formState: {errors}, reset} = useForm<DataProps>();
-    const dispatch = useDispatch();
+    const {register, handleSubmit, formState: {errors}, reset} = useForm<TableDataItem>();
+    const dispatch = useAppDispatch();
 
-    const onSubmit = async (data: FormData) => {
-        dispatch(editDataById({id: item.id, data}));
+    const onSubmit = (data: TableDataItem) => {
+        item && dispatch(editDataById({id: item.id, data}));
         reset();
         closeModal();
     }

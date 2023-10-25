@@ -7,7 +7,7 @@ axios.defaults.baseURL = 'https://technical-task-api.icapgroupgmbh.com/api';
 
 export const fetchTableData = createAsyncThunk(
     'table/fetchTableData',
-    async (offset, {rejectWithValue}) => {
+    async (offset: number, {rejectWithValue}) => {
         try {
             const response = await axios.get(`/table/?offset=${offset}`);
             return response.data;

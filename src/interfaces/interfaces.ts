@@ -35,5 +35,6 @@ export interface DataProps {
     email?: string,
     birthday_date?: string,
     phone_number?: string,
-    address?: string
+    address?: string,
+    id: number
 }

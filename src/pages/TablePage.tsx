@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Table } from "../components/Table/Table"
 import { selectDataCount, selectDataList, selectNextPage, selectPrevPage, selectTableLoading } from "../redux/table/selectors";
 import { fetchPrevNext, fetchTableData } from "../redux/table/actions";
 import { Loader } from "../components/Loader/Loader";
-// import { TableDataForm } from "../components/Forms/TableDataForm";
+import { useAppDispatch } from "../hooks";
 
 export const TablePage = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const dataList = useSelector(selectDataList);
     const dataCount = useSelector(selectDataCount);
     const isLoading = useSelector(selectTableLoading);
@@ -15,15 +15,17 @@ export const TablePage = () => {
     const nextPage = useSelector(selectNextPage);
     const [currentPage, setCurrentPage] = useState<number>(1);
     
-    const pages = Math.ceil((dataCount / 10));
+    const pages = dataCount && Math.ceil((dataCount / 10));
     const pageNumbers = [];
 
     useEffect(() => {
         dispatch(fetchTableData(0));
     }, [dispatch])
 
-    for (let i = 0; i < pages; i++) {
-        pageNumbers.push(i);
+    if (pages) {
+        for (let i = 0; i < pages; i++) {
+            pageNumbers.push(i);
+        }
     }
 
     const loadPage = (offset: number, page: number) => {
@@ -41,7 +43,7 @@ export const TablePage = () => {
     }
 
     const loadNext = (url: string) => {
-        if (currentPage > pages) {
+        if (pages && currentPage > pages) {
             return
         } else {
             dispatch(fetchPrevNext(url));
@@ -67,7 +69,7 @@ export const TablePage = () => {
                         >{page+1}</li>)
                 }
                 {
-                    (currentPage < pages) && nextPage && <li key='next' onClick={() => loadNext(nextPage)}  
+                    (pages && (currentPage < pages)) && nextPage && <li key='next' onClick={() => loadNext(nextPage)}  
                         className="border px-4 cursor-pointer text-center bg-gray-200 hover:bg-gray-300"
                     >Next</li>
                 }

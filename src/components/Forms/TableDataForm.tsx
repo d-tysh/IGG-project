@@ -1,23 +1,24 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectTableLoading } from "../../redux/table/selectors";
 import { useForm } from "react-hook-form";
 import { Loader } from "../Loader/Loader";
 import { addData } from "../../redux/table/actions";
-import { DataProps, FormData } from "../../interfaces/interfaces";
+import { FormData } from "../../interfaces/interfaces";
+import { useAppDispatch } from "../../hooks";
 
-export const TableDataForm = ({item}: {item?: DataProps}) => {
+export const TableDataForm = () => {
     const {register, handleSubmit, formState: {errors}, reset} = useForm<FormData>();
     const isLoading = useSelector(selectTableLoading);
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const onSubmit = () => {
-        dispatch(addData(item));
+    const onSubmit = (data: FormData) => {
+        dispatch(addData(data));
         reset();
     }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-1 w-[300px] mx-auto mb-4">
-            <input value={item?.name}
+            <input
                 {...register('name', 
                     {
                         required: 'Name is required!', 
@@ -27,7 +28,7 @@ export const TableDataForm = ({item}: {item?: DataProps}) => {
                 )} 
                 type="text" placeholder="Enter name" className="px-4 border py-2 rounded-xl hover:border-gray-400" />
             <p className="text-xs text-red-600 mb-1">{errors.name?.message}</p>
-            <input value={item?.email}
+            <input
                 {...register('email', 
                     {
                         required: 'Email is required!', 
@@ -37,7 +38,7 @@ export const TableDataForm = ({item}: {item?: DataProps}) => {
                 )} 
                 type="text" placeholder="Enter email" className="px-4 border py-2 rounded-xl hover:border-gray-400" />
             <p className="text-xs text-red-600 mb-1">{errors.email?.message}</p>
-            <input value={item?.phone_number}
+            <input
                 {...register('phone_number', 
                 {
                     required: 'Phone number is required!',
@@ -47,7 +48,7 @@ export const TableDataForm = ({item}: {item?: DataProps}) => {
                 )} 
                 type="text" placeholder="Enter phone number" className="px-4 border py-2 rounded-xl hover:border-gray-400" />
             <p className="text-xs text-red-600 mb-1">{errors['phone_number']?.message}</p>
-            <input value={item?.birthday_date}
+            <input
                 {...register('birthday_date', 
                     {
                         required: 'Birthday date is required!',
@@ -59,7 +60,7 @@ export const TableDataForm = ({item}: {item?: DataProps}) => {
                 )} 
                 type="text" placeholder="Enter birthday date" className="px-4 border py-2 rounded-xl hover:border-gray-400" />
             <p className="text-xs text-red-600 mb-1">{errors['birthday_date']?.message}</p>
-            <input value={item?.address}
+            <input
                 {...register('address', 
                     {
                         required: 'Address is required!',

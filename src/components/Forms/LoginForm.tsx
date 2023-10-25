@@ -1,8 +1,9 @@
 import { login } from "../../redux/auth/actions";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectIsLoading } from "../../redux/auth/selectors";
 import { Loader } from "../Loader/Loader";
 import { useForm } from "react-hook-form";
+import { useAppDispatch } from "../../hooks";
 
 type FormData = {
     username: string
@@ -12,7 +13,7 @@ type FormData = {
 export const LoginForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>();
     const isLoading = useSelector(selectIsLoading);
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const onSubmit = (userData: FormData) => {
         dispatch(login(userData));
