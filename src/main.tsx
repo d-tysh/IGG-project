@@ -7,11 +7,11 @@ import { Provider } from 'react-redux';
 import { store } from './redux/store.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter basename='IGG-project'>
         <App />
       </BrowserRouter>
     </Provider>
-  // </React.StrictMode>,
+  </React.StrictMode>,
 )

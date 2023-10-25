@@ -2,9 +2,14 @@ import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { toast } from "react-toastify";
 
+type FormData = {
+    username: string
+    password: string
+}
+
 export const login = createAsyncThunk(
     'auth/login',
-    async (userData, { rejectWithValue }) => {
+    async (userData: FormData, { rejectWithValue }) => {
         try {
             const response = await axios.post('https://technical-task-api.icapgroupgmbh.com/api/login/', userData);
             if (response.status === 200) {
