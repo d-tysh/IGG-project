@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { addData, editDataById, fetchPrevNext, fetchTableData } from "./actions"
+import { addData, editDataById, fetchPrevNext, fetchTableData, getDataById } from "./actions"
 import { TableData } from "../../interfaces/interfaces"
 
 const initialState: TableData = {
@@ -8,13 +8,19 @@ const initialState: TableData = {
     error: null,
     dataCount: null,
     prevPage: null,
-    nextPage: null
+    nextPage: null,
+    itemInfo: null,
+    itemLoading: false
 }
 
 const tableSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {},
+    reducers: {
+        deleteItemData: (state) => {
+            state.itemInfo = null;
+        }
+    },
     extraReducers: builder => {
         builder
             .addCase(fetchTableData.pending, (state: TableData) => {
@@ -62,6 +68,20 @@ const tableSlice = createSlice({
             })
             .addCase(addData.rejected, (state: TableData, action) => {
                 state.isLoading = false;
+                state.error = action.payload as string;
+            })
+
+            .addCase(getDataById.pending, (state: TableData) => {
+                state.itemInfo = null;
+                state.itemLoading = true;
+                state.error = null;
+            })
+            .addCase(getDataById.fulfilled, (state: TableData, action) => {
+                state.itemInfo = action.payload;
+                state.itemLoading = false;
+            })
+            .addCase(getDataById.rejected, (state: TableData, action) => {
+                state.itemLoading = false;
                 state.error = action.payload as string;
             })
 

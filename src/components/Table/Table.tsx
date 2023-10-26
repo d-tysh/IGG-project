@@ -1,21 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { TableDataItem } from '../../interfaces/interfaces';
 import { BsPencilSquare } from 'react-icons/bs';
 import { ModalWindow } from '../ModalWindow/ModalWindow';
+import { useAppDispatch } from '../../hooks';
+import { getDataById } from '../../redux/table/actions';
 
 export const Table = ({ dataList }: { dataList: TableDataItem[] }) => {
     const [modalIsOpen, setIsOpen] = useState(false);
-    const [itemData, setItemData] = useState<TableDataItem | null>(null);
-
-    useEffect(() => {}, [modalIsOpen]);
+    const dispatch = useAppDispatch();
 
     const openModal = (item: TableDataItem) => {
-        setItemData(item);
+        dispatch(getDataById(item.id));
         setIsOpen(true);
     }
 
     const closeModal = () => {
-        setItemData(null);
         setIsOpen(false);
     }
 
@@ -57,7 +56,6 @@ export const Table = ({ dataList }: { dataList: TableDataItem[] }) => {
             <ModalWindow 
                 modalIsOpen={modalIsOpen}  
                 closeModal={closeModal}
-                item={itemData}
             />
         </div>
     )

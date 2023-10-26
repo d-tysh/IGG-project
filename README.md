@@ -1,27 +1,14 @@
-# React + TypeScript + Vite
+# Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a project that involves creating a login page and a table page using React, Redux Toolkit, TypeScript, and optional libraries. The goal is to demonstrate ability to handle form validation, API requests, and data manipulation.
 
-Currently, two official plugins are available:
+### Login Page
+On the login page, users are required to enter their username and password. Only one user is available in the database with the following credentials:
+- Username: testuser
+- Password: testpassword123
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Table Page
+The table page can display data from the API. You can fetch the data from the following API endpoint: [API Endpoint](https://technical-task-api.icapgroupgmbh.com/api/table/)
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Deployment
+The project is deployed on a deployment Vercel platform. Link for project [igg-project.vercel.app](https://igg-project.vercel.app/).

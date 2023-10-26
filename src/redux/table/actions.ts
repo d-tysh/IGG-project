@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import { FormData, TableDataItem } from "../../interfaces/interfaces";
 import { toast } from "react-toastify";
@@ -60,6 +60,27 @@ export const addData = createAsyncThunk(
         }
     }
 )
+
+export const getDataById = createAsyncThunk(
+    'table/getDataById',
+    async (id: number, {rejectWithValue}) => {
+        try {
+            const response = await axios.get(`table/${id}/`);
+            // console.log(response.data);
+            return response.data;
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                const axiosError = error as AxiosError;
+                if (axiosError.response) {
+                    return rejectWithValue(axiosError.response.data);
+                }
+            }
+            throw error;
+        }
+    }
+)
+
+export const deleteItemData = createAction('table/deleteItemData');
 
 export const editDataById = createAsyncThunk(
     'table/editDataById',
