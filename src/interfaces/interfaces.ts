@@ -10,7 +10,9 @@ export interface TableData {
     error: string | null,
     dataCount: number | null,
     prevPage: string | null,
-    nextPage: string | null
+    nextPage: string | null,
+    itemLoading: boolean,
+    itemInfo: TableDataItem | null
 }
 
 export interface TableDataItem {
